@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FPSCharacter.h"
+#include "Camera/CameraComponent.h"
 
 
 // Sets default values
@@ -9,6 +10,15 @@ AFPSCharacter::AFPSCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Create a first person camera component.
+	FPSCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
+	// Attach the camera component to our capsule component.
+	FPSCameraComponent->SetupAttachment((USceneComponent*)GetCapsuleComponent());
+
+	// Position the camera slightly above the eyes.
+	FPSCameraComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f + BaseEyeHeight));
+	// Allow the pawn to control camera rotation.
+	FPSCameraComponent->bUsePawnControlRotation = true;
 }
 
 // Called when the game starts or when spawned
