@@ -25,6 +25,11 @@ AFPSProjectile::AFPSProjectile()
 	ProjectileMovementComponent->bRotationFollowsVelocity = true;
 	ProjectileMovementComponent->bShouldBounce = true;
 	ProjectileMovementComponent->Bounciness = 0.3f;
+
+	// Die after 3 seconds.
+	InitialLifeSpan = 3.0f;
+
+	CollisionComponent->BodyInstance.SetCollisionProfileName(TEXT("Projectile"));
 }
 
 // Called when the game starts or when spawned
